@@ -49,15 +49,36 @@ class Usuarios extends Controller
     public function usuarios(){
         $users = ModelsUsuarios::get();
 
+        if(!$users){
+            return response()->json([
+                'status' => false,
+                'message' => 'No users found!',
+                'data' => 'Not Data'
+            ], 409);
+        }
 
         return response()->json([
             'status' => true,
             'message' => 'Get all users!',
             'data' => $users
-        ],201);
+        ],200);
     }
 
     public function usuariosNameStartWithR(){
         $users = ModelsUsuarios::where('name', 'R%')->get();
+
+        if(!$users){
+            return response()->json([
+                'status' => false,
+                'message' => 'No users how name starts with R!',
+                'data' => 'Not Data'
+            ], 409);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Get all users that name starts with R!',
+            'data' => $users
+        ],200);
     }
 }
